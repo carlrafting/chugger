@@ -1,0 +1,6 @@
+#!/usr/bin/env -S -v deno run --unstable --allow-read --allow-write
+
+// chugger main module
+import main from '../src/index.js';
+
+main();
