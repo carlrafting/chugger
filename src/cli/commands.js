@@ -1,15 +1,19 @@
-import * as log from "https://deno.land/std@0.88.0/log/mod.ts";
-import { yellow } from "https://deno.land/std@0.88.0/fmt/colors.ts";
+import { yellow } from "../../deps.js";
 
 import init from './commands/init.js';
+import build from "./commands/build.js";
+import start from "./commands/start.js";
 
 const commands = [
-    { name: 'init', description: 'Intitalize a new chugger project', command: init }
+    { name: 'init', description: 'Intitalize a new chugger project', command: init },
+    { name: 'start', description: 'Start development server', command: start },
+    { name: 'build', description: 'Build project assets for production deployment', command: build }
 ];
 
 export function list() {
     console.log(`   Available Commands: \n`);
-    commands.forEach(command => console.log(`   chugger ${command.name}         ${command.description} \n`));
+    commands.forEach(command => console.log(`   chugger ${command.name}`, `     ${command.description}`));
+    console.log('\n');
 }
 
 export function run(command) {
