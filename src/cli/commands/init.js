@@ -1,20 +1,16 @@
-import { exists, copy } from "https://deno.land/std@0.88.0/fs/mod.ts";
-import { join } from "https://deno.land/std@0.88.0/path/mod.ts";
-import { getChuggerPath } from "../../utils/paths.js";
+import { exists, copy, red, green } from "../../../deps.js";
+import { getChuggerPath, projectConfigPath, projectRoot, defaultConfigPath } from "../../utils/paths.js";
 
-const projectRoot = Deno.cwd();
-const projectConfigPath = `${projectRoot}/chugger.config.js`;
 const chuggerPath = getChuggerPath();
 
 async function copyConfigurationFile() {
-    const defaultConfig = join(chuggerPath, 'src', 'chugger.config.js')
-    console.log('defaultConfig', defaultConfig);
+        console.log('defaultConfig', defaultConfigPath);
     
     try {
-        await copy(defaultConfig, projectConfigPath);
-        console.log('✅ Configuration file created!');
+        await copy(defaultConfigPath, projectConfigPath);
+        console.log(green('✅ Configuration file created!'));
     } catch (error) {
-        console.log('⛔ Could not create configuration file!', error);
+        console.log(red('⛔ Could not create configuration file!'), error);
     }
 }
 
