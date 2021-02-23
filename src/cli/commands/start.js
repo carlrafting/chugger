@@ -29,6 +29,12 @@ export default async function start() {
         //
         // https://github.com/denoland/deno/issues/6966
         //
+        // After a bit of digging, i found a solution!
+        // The repository needs to be stored on the Linux file system and not Windows.
+        // The more you know...
+        // 
+        // https://docs.microsoft.com/en-us/windows/wsl/compare-versions#performance-across-os-file-systems 
+        // 
         const watcher = Deno.watchFs(path);
                 
         for await (const event of watcher) {
