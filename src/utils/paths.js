@@ -6,7 +6,7 @@ const projectRoot = Deno.cwd();
 const chuggerPath = path.join(__dirname, '../..');
 const configFilename = 'chugger.config.js';
 const projectConfigPath = path.join(projectRoot, configFilename);
-const defaultConfigPath = path.join(chuggerPath, 'src', configFilename);
+const defaultConfigPath = path.join(chuggerPath, 'src', 'config', configFilename);
 
 export function getChuggerPath() {
     return chuggerPath;
