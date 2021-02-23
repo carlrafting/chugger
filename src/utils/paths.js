@@ -1,10 +1,19 @@
-import * as path from "https://deno.land/std@0.88.0/path/mod.ts";
+import { path } from "../../deps.js";
 
 const __filename = path.fromFileUrl(import.meta.url);
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url));
+const projectRoot = Deno.cwd();
+const chuggerPath = path.join(__dirname, '../..');
+const configFilename = 'chugger.config.js';
+const projectConfigPath = path.join(projectRoot, configFilename);
+const defaultConfigPath = path.join(chuggerPath, 'src', configFilename);
 
 export function getChuggerPath() {
-    return path.join(__dirname, '../..');
+    return chuggerPath;
 }
 
-console.log('getChuggerPath', getChuggerPath());
+export {
+    projectRoot,
+    projectConfigPath,
+    defaultConfigPath
+}
