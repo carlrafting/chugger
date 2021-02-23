@@ -24,7 +24,7 @@ export default async function start() {
         console.log(path);
 
         // So it turns out watchFs doesn't work inside a WSL VM.
-        // At least now i can stop baning my head against the wall. 
+        // At least now i can stop banging my head against the wall. 
         // The problem didn't have anything to do with my code...
         //
         // https://github.com/denoland/deno/issues/6966
