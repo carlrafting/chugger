@@ -36,37 +36,3 @@ export default async function start() {
         }
     });
 }
-
-function startPromise() {
-    console.log('Starting development server...')
-
-    exists(projectConfigPath)    
-        .then(result => loadConfigurationFile(result ? projectConfigPath : defaultConfigPath))
-        .then(config => {
-            const { watch } = config.default();
-
-            return Object.keys(watch).map(dir => dir);
-        })
-        .then((dirs) => {
-            return dirs.map((dir) => {
-                const watchPath = path.join(Deno.cwd(), dir);
-                return watchPath;
-            });
-        })
-        .then(paths => {
-            console.log(paths);
-
-            return paths.forEach(async (path) => {
-                const watcher = Deno.watchFs(path);
-                
-                for await (const event of watcher) {
-                    return console.log(event);
-                }
-            
-                return watcher;
-            });
-        })
-        .catch(error => {
-            console.log(error)
-        });
-}
