@@ -1,4 +1,4 @@
-import { exists, path } from "../../../deps.js";
+import { exists, path, serve } from "../../../deps.js";
 import { projectConfigPath, defaultConfigPath } from "../../utils/paths.js";
 
 function loadConfigurationFile(path) {
@@ -7,12 +7,42 @@ function loadConfigurationFile(path) {
         .catch(e => console.log(e));
 }
 
+async function server({ hostname, port }) {
+    const server = serve({ hostname, port });
+
+    console.log(`HTTP webserver running.  Access it at:  http://${hostname}:${port}/`);
+
+    for await (const request of server) {
+        console.log(request);
+
+        let bodyContent = "Your user-agent is:\n\n";
+        bodyContent += request.headers.get("user-agent") || "Unknown";
+
+        request.respond({ status: 200, body: bodyContent });
+    }
+}
+
 export default async function start() {
     const result = await exists(projectConfigPath);
 
     const config = await loadConfigurationFile(result ? projectConfigPath : defaultConfigPath);
     
     const { watch } = config();
+    let { server: serverConfig } = config();
+
+    if (!serverConfig) {
+        // get default server configuration if there is no server property in project config
+        const defaultConfig = await loadConfigurationFile(defaultConfigPath);
+        serverConfig = defaultConfig().server;
+        console.log('defaultConfig', defaultConfig);
+    }
+
+    console.log('serverConfig', serverConfig);
+    server({ ...serverConfig });
+
+    if (!watch) {
+        throw new Error('No watch property in your config file');
+    }
 
     const watchDirs = Object.keys(watch).map(dir => dir);
     const watchDirPaths = watchDirs.map(dir => path.join(Deno.cwd(), dir));

@@ -5,6 +5,7 @@ export * as log from "https://deno.land/std@0.88.0/log/mod.ts";
 export { yellow, green, dim, red } from "https://deno.land/std@0.88.0/fmt/colors.ts";
 export * as path from "https://deno.land/std@0.88.0/path/mod.ts";
 export { parse as parseFlags } from "https://deno.land/std@0.88.0/flags/mod.ts";
+export { serve } from "https://deno.land/std@0.88.0/http/server.ts";
 
 // deno third party modules
 export * as urlcat from 'https://deno.land/x/urlcat/src/index.ts';
