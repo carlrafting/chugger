@@ -10,15 +10,21 @@ function loadConfigurationFile(path) {
 async function server({ 
     hostname, 
     port, 
-    certFile=`${chuggerPath}/src/config/localhost.cert.pem`, 
-    keyFile=`${chuggerPath}/src/config/localhost.pem` 
+    https
 }) {
-    console.log('certFile', certFile);
-    console.log('keyFile', keyFile);
-    
-    const server = serveTLS({ hostname, port, certFile, keyFile });
+    console.log('https', https);
 
-    console.log(`HTTPS webserver running.  Access it at:  https://${hostname}:${port}/`);
+    let certFile, keyFile;
+
+    if (https) {
+        let { certFile, keyFile } = https;
+        console.log('certFile', certFile);
+        console.log('keyFile', keyFile);
+    }
+
+    const server = https ? serveTLS({ hostname, port, certFile, keyFile }) : serve({ hostname, port });
+    
+    console.log(`${https ? 'HTTPS' : 'HTTP'} webserver running.  Access it at:  ${https ? 'https' : 'http'}://${hostname}:${port}/`);
 
     for await (const request of server) {
         console.log(request);
