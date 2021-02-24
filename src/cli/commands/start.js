@@ -1,5 +1,5 @@
-import { exists, path, serve } from "../../../deps.js";
-import { projectConfigPath, defaultConfigPath } from "../../utils/paths.js";
+import { exists, path, serve, serveTLS } from "../../../deps.js";
+import { projectConfigPath, defaultConfigPath, chuggerPath } from "../../utils/paths.js";
 
 function loadConfigurationFile(path) {
     return import(path)
@@ -7,10 +7,18 @@ function loadConfigurationFile(path) {
         .catch(e => console.log(e));
 }
 
-async function server({ hostname, port }) {
-    const server = serve({ hostname, port });
+async function server({ 
+    hostname, 
+    port, 
+    certFile=`${chuggerPath}/src/config/localhost.cert.pem`, 
+    keyFile=`${chuggerPath}/src/config/localhost.pem` 
+}) {
+    console.log('certFile', certFile);
+    console.log('keyFile', keyFile);
+    
+    const server = serveTLS({ hostname, port, certFile, keyFile });
 
-    console.log(`HTTP webserver running.  Access it at:  http://${hostname}:${port}/`);
+    console.log(`HTTPS webserver running.  Access it at:  https://${hostname}:${port}/`);
 
     for await (const request of server) {
         console.log(request);

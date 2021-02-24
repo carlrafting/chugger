@@ -15,5 +15,6 @@ export function getChuggerPath() {
 export {
     projectRoot,
     projectConfigPath,
-    defaultConfigPath
+    defaultConfigPath,
+    chuggerPath
 }
