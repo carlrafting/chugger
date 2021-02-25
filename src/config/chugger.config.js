@@ -3,15 +3,19 @@ export default () => {
 
     return {
         server: {
-            hostname: "0.0.0.0",
-            port: 8080,
+            hostname: "localhost",
+            port: 443,
             https: {
-                certFile: './src/config/localhost.cert.pem',
-                keyFile: './src/config/localhost.pem'
+                certFile: 'src/config/localhost.crt',
+                keyFile: 'src/config/localhost.key'
             }
         },
         watch: {
-            src: '/'
+            src: '/assets',
+            public: {
+                url: '/',
+                build: false
+            }
         }
-    }
+    };
 };
