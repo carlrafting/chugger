@@ -1,2 +1,1 @@
-src/config/localhost.cert.pem 
-src/config/localhost.pem
+src/config/*.{pem,key,crt} 
