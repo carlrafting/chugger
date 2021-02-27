@@ -1,37 +1,59 @@
 import { yellow } from "../../deps.js";
 
-import init from './commands/init.js';
+import init from "./commands/init.js";
 import build from "./commands/build.js";
 import start from "./commands/start.js";
 
 const commands = [
-    { name: 'init', description: 'Intitalize a new chugger project', command: init },
-    { name: 'start', description: 'Start development server', command: start },
-    { name: 'build', description: 'Build project assets for production deployment', command: build }
+  {
+    name: "init",
+    description: "Intitalize a new chugger project",
+    command: init,
+  },
+  { 
+    name: "start", 
+    description: "Start development server", 
+    command: start 
+  },
+  {
+    name: "build",
+    description: "Build project assets for production deployment",
+    command: build,
+  },
 ];
 
 export function list() {
-    console.log(`   Available Commands: \n`);
-    commands.forEach(command => console.log(`   chugger ${command.name}`, `     ${command.description}`));
-    console.log('\n');
+  let text = `   Available Commands: \n`;
+  commands.forEach((command) => {
+      text += [`   chugger ${command.name}`,  `     ${command.description} \n`].join(' ')
+    }
+  );
+  console.log(text);
+  console.log("\n");
+
+  return text;
 }
 
 export function run(command) {
-    if (!command) {
-        console.log(yellow('[WARNING] No command provided! \n'));
-        return;
-    }
-    
-    console.log(`Command: ${command}`);
+  let message;
 
-    const match = commands.filter(c => c.name === command[0]);
+  if (!command) {
+    message = "[WARNING] No command provided! \n";
+    throw new Error(message);
+  }
 
-    if (match.length > 0) {
-        match[0].command();
-        return;
-    }
+  message = `Command: ${command}`;
 
-    if (match.length === 0) {
-        console.log(`Command '${command}' not found!`);
-    }
+  console.log(message);
+
+  const match = commands.find((c) => c.name === command[0]);
+
+  if (!match) {
+    message = `Command '${command}' not found! \n`;
+    throw new Error(message);
+  }
+  
+  match && match.command();
+
+  return true;
 }

@@ -1,17 +1,19 @@
-import { green, dim } from "../../deps.js";
-import { NAME, VERSION, DESCRIPTION } from '../../info.js';
+import { dim, green } from "../../deps.js";
+import { DESCRIPTION, NAME, VERSION } from "../../info.js";
 
 export default function welcome() {
-    console.log(`
+  const message = `
 ********************************************************************
 
     ${NAME}@v${VERSION}
 
-   🎉 ${green('Welcome to chugger!')}
+    🎉 ${green("Welcome to chugger!")}
 
     ${dim(DESCRIPTION)}
 
+********************************************************************\n`;
 
-********************************************************************
-    `);
+  console.log(message);
+
+  return message;
 }
