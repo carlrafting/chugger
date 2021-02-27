@@ -2,7 +2,7 @@
  
 A tool for managing web assets, without the complexity. 
 
-> ⚠ WARNING: This project is young, under development and is not ready for use yet.
+    ⚠ WARNING: This project is young, under development and is not ready for use yet.
 
 ## Install
 
