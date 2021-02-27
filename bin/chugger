@@ -1,6 +1,4 @@
 #!/usr/bin/env -S -v deno run --unstable --allow-read --allow-write --allow-net
 
 // chugger main module
-import { main } from '../mod.js';
-
-main();
+import '../mod.js';
