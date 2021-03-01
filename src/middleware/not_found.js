@@ -1,4 +1,4 @@
-import { Status } from '../../mod.js';
+import { Status } from '../../deps.js';
 
 export default function notFound(context) {
   context.response.status = Status.NotFound;
