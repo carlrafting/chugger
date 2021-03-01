@@ -1,3 +1,5 @@
+import { Status } from '../../mod.js';
+
 export default function notFound(context) {
   context.response.status = Status.NotFound;
   context.response.body =
