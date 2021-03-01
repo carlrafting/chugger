@@ -1,6 +1,4 @@
 export default () => {
-  // this is the default chugger configuration file...
-
   return {
     server: {
       hostname: "localhost",

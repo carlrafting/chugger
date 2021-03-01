@@ -6,15 +6,17 @@ Deno.test('run without command', () => {
 });
 
 Deno.test('run with invalid command', () => {
-  const command = 'foobar';
+  const command = ['foobar'];
   assertThrows(() => run(command), Error, `Command '${command}' not found! \n`);
 });
 
 Deno.test('run with valid command', () => {
-  const commands = [
-    'start',
-    'init',
-    'build'
-  ];
-  assert(true)
+  assert(run(['start'], false));
+  assert(run(['init'], false));
+  assert(run(['build'], false));
+});
+
+Deno.test('list commands', () => {
+  const results = list();
+  assertEquals(typeof results, 'string');
 });

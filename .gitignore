@@ -1,3 +1,4 @@
 src/config/*.pem
 src/config/*.key
 src/config/*.crt
+.vscode

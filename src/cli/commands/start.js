@@ -17,15 +17,17 @@ export default async function start() {
     result ? projectConfigPath : defaultConfigPath,
   );
 
-  const { watch } = config();
-  let { server: serverConfig } = config();
+  const { watch } = typeof config === 'function' ? config() : config;
+  let { server: serverConfig } = typeof config === 'function' ? config() : config;
 
   if (!serverConfig) {
     // get default server configuration if there is no server property in project config
     const defaultConfig = await loadConfigurationFile(defaultConfigPath);
-    serverConfig = defaultConfig().server;
+    serverConfig = typeof defaultConfig === 'function' ? defaultConfig().server : defaultConfig.server;
     console.log("defaultConfig", defaultConfig);
   }
+
+  // TODO: validate config file. If no properties were found, merge with default config.
 
   console.log("serverConfig", serverConfig);
   server({ ...serverConfig });

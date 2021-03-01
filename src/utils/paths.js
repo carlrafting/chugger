@@ -12,9 +12,21 @@ const defaultConfigPath = path.join(
   "config",
   configFilename,
 );
+const templateConfigPath = path.join(
+  chuggerPath,
+  "src",
+  "templates",
+  configFilename,
+);
 
 export function getChuggerPath() {
   return chuggerPath;
 }
 
-export { chuggerPath, defaultConfigPath, projectConfigPath, projectRoot };
+export {
+  chuggerPath,
+  defaultConfigPath,
+  projectConfigPath,
+  projectRoot,
+  templateConfigPath,
+};

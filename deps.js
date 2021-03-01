@@ -7,6 +7,7 @@ export {
   green,
   red,
   yellow,
+  cyan
 } from "https://deno.land/std@0.88.0/fmt/colors.ts";
 export * as path from "https://deno.land/std@0.88.0/path/mod.ts";
 export { parse as parseFlags } from "https://deno.land/std@0.88.0/flags/mod.ts";
@@ -16,3 +17,4 @@ export { serve, serveTLS } from "https://deno.land/std@0.88.0/http/server.ts";
 export * as urlcat from "https://deno.land/x/urlcat/src/index.ts";
 export * as yargs from "https://deno.land/x/yargs/deno.ts";
 export * as Arguments from "https://deno.land/x/yargs/deno-types.ts";
+export { Application, Router } from "https://deno.land/x/oak/mod.ts";

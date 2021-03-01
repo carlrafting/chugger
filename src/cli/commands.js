@@ -24,17 +24,19 @@ const commands = [
 
 export function list() {
   let text = `   Available Commands: \n`;
+
   commands.forEach((command) => {
       text += [`   chugger ${command.name}`,  `     ${command.description} \n`].join(' ')
     }
   );
+
   console.log(text);
   console.log("\n");
 
   return text;
 }
 
-export function run(command) {
+export function run(command, runCommand=true) {
   let message;
 
   if (!command) {
@@ -53,7 +55,9 @@ export function run(command) {
     throw new Error(message);
   }
   
-  match && match.command();
-
-  return true;
+  // runCommand && match && match.command();
+  
+  return runCommand ?
+    match && match.command() :
+    match;
 }

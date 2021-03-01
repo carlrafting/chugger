@@ -1,18 +1,13 @@
 import { copy, exists, green, red } from "../../../deps.js";
 import {
-  defaultConfigPath,
-  getChuggerPath,
   projectConfigPath,
   projectRoot,
+  templateConfigPath,
 } from "../../utils/paths.js";
 
-const chuggerPath = getChuggerPath();
-
 async function copyConfigurationFile() {
-  console.log("defaultConfig", defaultConfigPath);
-
   try {
-    await copy(defaultConfigPath, projectConfigPath);
+    await copy(templateConfigPath, projectConfigPath);
     console.log(green("✅ Configuration file created!"));
   } catch (error) {
     console.log(red("⛔ Could not create configuration file!"), error);
