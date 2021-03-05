@@ -4,8 +4,8 @@ export default () => {
       hostname: "localhost",
       port: 443,
       https: {
-        certFile: "src/config/localhost.crt",
-        keyFile: "src/config/localhost.key",
+        certFile: "config/localhost.crt",
+        keyFile: "config/localhost.key",
       },
     },
     watch: {

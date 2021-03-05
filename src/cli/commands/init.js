@@ -7,6 +7,7 @@ import {
 
 async function copyConfigurationFile() {
   try {
+    const status = await Deno.permissions.request({ name: 'write' });
     await copy(templateConfigPath, projectConfigPath);
     console.log(green("✅ Configuration file created!"));
   } catch (error) {
@@ -15,7 +16,7 @@ async function copyConfigurationFile() {
 }
 
 export default async function init() {
-  console.log(projectConfigPath);
+  console.log('projectConfigPath', projectConfigPath);
 
   if (await exists(`${projectConfigPath}`)) {
     console.log("Config file already exists!");

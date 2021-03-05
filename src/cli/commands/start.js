@@ -32,8 +32,10 @@ export default async function start() {
   console.log("serverConfig", serverConfig);
   server({ ...serverConfig });
 
+  // console.log('defaultConfig', defaultConfig);
+
   if (!watch) {
-    throw new Error("No watch property in your config file");
+    return;  
   }
 
   const watchKeys = Object.keys(watch);

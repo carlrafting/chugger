@@ -9,6 +9,12 @@ export async function server({
   https,
 }) {
   console.log("https", https);
+  
+  const status = await Deno.permissions.request({ name: 'net', host: hostname });
+
+  if (status.state === 'denied') {
+    return;
+  }
 
   const app = new Application();
   const router = new Router();
