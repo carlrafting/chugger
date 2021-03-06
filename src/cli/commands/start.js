@@ -10,21 +10,42 @@ function loadConfigurationFile(path) {
   );
 }
 
-export default async function start() {
-  const result = await exists(projectConfigPath);
+function getConfigProps(config) {
+  return (typeof config === 'function' ? config() : config);
+}
 
+async function getConfigObject() {
+  const result = await exists(projectConfigPath);
+  
   const config = await loadConfigurationFile(
     result ? projectConfigPath : defaultConfigPath,
   );
 
-  const { watch } = typeof config === 'function' ? config() : config;
-  let { server: serverConfig } = typeof config === 'function' ? config() : config;
+  const { watch, server } = getConfigProps(config);
+
+  return {
+    watch,
+    server
+  };
+}
+
+async function getDefaultConfigObject() {
+  const config = await loadConfigurationFile(defaultConfigPath);
+  
+  return {
+    ...getConfigProps(config)
+  };
+}
+
+export default async function start() {
+  const { watch } = await getConfigObject();
+  let { server: serverConfig } = await getConfigObject();
 
   if (!serverConfig) {
     // get default server configuration if there is no server property in project config
-    const defaultConfig = await loadConfigurationFile(defaultConfigPath);
-    serverConfig = typeof defaultConfig === 'function' ? defaultConfig().server : defaultConfig.server;
-    console.log("defaultConfig", defaultConfig);
+    const { server: defaultServerConfig } = getDefaultConfigObject();
+    serverConfig = defaultServerConfig;
+    console.log(defaultServerConfig);
   }
 
   // TODO: validate config file. If no properties were found, merge with default config.
